@@ -18,8 +18,6 @@ class EmployeeInfo {
 }
 
 let employeesList = [];
-let total = 0;
-let monthlyCost = 0;
 
 
 $(document).ready(docReady);
@@ -125,8 +123,20 @@ function calculateMonthlyCosts() {
 // STEP 3: Create a delete button that removes an employee from the DOM.
 // target #employeesList, if it has .deleteButton, on click...
 // target this employeeRow and remove closest tr
+
 function deleteEmployee(){
     console.log('in deleteEmployee');
     
     $(this).closest('tr').remove();
+
+    $('#totalMonthlyCost').text(`new total`);
+
 } // end deleteEmployee
+
+
+// STEP 4: Once the employee is deleted, update the total spend on salaries account for this employee's removal. 
+// in deleteEmployee...
+// when delete is clicked, 
+// target #totalMonthlyCost replace text with new total
+
+
