@@ -33,6 +33,8 @@ function docReady(){
     
     $('#submit').on('click', calculateMonthlyCosts);
 
+    $('#employeesList').on('click', '.deleteButton', deleteEmployee);
+
 } // end docReady
 
 // Step 1: on submit, get input values and add to Employees list
@@ -55,7 +57,7 @@ function addEmployee(){
     console.log('input', fnameInput, lnameInput, idInput, titleInput, salaryInput);
     
     $('#employeesList').append(`
-        <tr>
+        <tr class="employeeRow">
             <td>${fnameInput}</td>
             <td>${lnameInput}</td>
             <td>${idInput}</td>
@@ -118,3 +120,13 @@ function calculateMonthlyCosts() {
     $('#totalMonthlyCost').text(` $${total}`);
 
 } // end calculateMonthlyCosts
+
+
+// STEP 3: Create a delete button that removes an employee from the DOM.
+// target #employeesList, if it has .deleteButton, on click...
+// target this employeeRow and remove closest tr
+function deleteEmployee(){
+    console.log('in deleteEmployee');
+    
+    $(this).closest('tr').remove();
+} // end deleteEmployee
