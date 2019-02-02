@@ -1,13 +1,25 @@
 console.log('js');
 
 // variables for form
-let fname;
-let lname;
-let id;
-let title;
-let salary;
-let employeeInfo = { };
+let fnameInput;
+let lnameInput;
+let idInput;
+let titleInput;
+let salaryInput = 0;
+
+class EmployeeInfo {
+    constructor(fname, lname, id, title, salary) {
+        this.fname = fname;
+        this.lname = lname;
+        this.id = id;
+        this.title = title;
+        this.salary = salary;
+    }
 }
+
+let employeesList = [];
+let monthlyCost = 0;
+
 
 $(document).ready(docReady);
 
@@ -16,34 +28,38 @@ function docReady(){
     console.log('jq');
 
     $('#submit').on('click', addEmployee);
+    //$('#submit').on('click', storeEmployeeInfo);
     
-    
-    
-}
+    $('#submit').on('click', calculateMonthlyCosts);
+
+} // end docReady
 
 // Step 1: on submit, get input values and add to Employees list
 // target submit button and create event listener
 // get input values
 // append row and val to tbody
 // set input val to ''
+// create new employee
+// push new employee to employees list
 
 function addEmployee(){
     console.log('in addEmployee');
         
-    fname = $('#fname').val();
-    lname = $('#lname').val();
-    id = $('#id').val();
-    title = $('#title').val();
-    salary = $('#salary').val();
-    console.log('input', fname, lname, id, title, salary);
+    fnameInput = $('#fname').val();
+    lnameInput = $('#lname').val();
+    idInput = $('#id').val();
+    titleInput = $('#title').val();
+    salaryInput = $('#salary').val();
+    salaryInput = Math.floor( Number(salaryInput) );
+    console.log('input', fnameInput, lnameInput, idInput, titleInput, salaryInput);
     
     $('#employeesList').append(`
         <tr>
-            <td>${fname}</td>
-            <td>${lname}</td>
-            <td>${id}</td>
-            <td>${title}</td>
-            <td>${salary}</td>
+            <td>${fnameInput}</td>
+            <td>${lnameInput}</td>
+            <td>${idInput}</td>
+            <td>${titleInput}</td>
+            <td>${salaryInput}</td>
         </tr>
     `);
 
@@ -53,7 +69,50 @@ function addEmployee(){
     $('#title').val('');
     $('#salary').val('');
 
+    let newEmployee = new EmployeeInfo(fnameInput, lnameInput, idInput, titleInput, salaryInput);
+    console.log('temp:', newEmployee);
+
+    employeesList.push(newEmployee);
+    //employeesList.push(temp);
+    console.log('employeesList:', employeesList);
+
 } // end addEmployee
 
-// STEP 2: store information and calculate monthly costs
-// 
+
+// STEP 2: Using the stored information, calculate monthly costs and append this to the to DOM
+// target button, on submit...
+// create temp monthly salary array
+// loop through annual salary
+// divide annual salary by 12
+// assign to monthly salary array
+// loop through monthly salary 
+// create monthly cost = 0
+// add to monthly cost 
+
+
+function calculateMonthlyCosts() {
+    console.log('in calculateMonthlyCosts');
+    console.log('input:', fnameInput, lnameInput, idInput, titleInput, salaryInput);
+    
+    let monthlySalary = [];
+
+    for (let i = 0; i < employeesList.length; i++) {
+        console.log('employeesList[i]:', Math.floor(employeesList[i].salary / 12) );
+        
+        monthlySalary.push(Math.floor(employeesList[i].salary / 12) );
+        console.log('monthlySalary:', monthlySalary);
+        
+
+    } // end employeesList loop
+    
+    for (let employee in monthlySalary) {
+        console.log('in monthlySalary');
+        
+        monthlyCost += monthlySalary[employee];
+        console.log('monthlyCost:', monthlyCost);
+
+    } // end monthlySalary loop
+    
+    
+
+} // end calculateMonthlyCosts
