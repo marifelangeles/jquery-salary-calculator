@@ -61,6 +61,7 @@ function addEmployee(){
             <td>${idInput}</td>
             <td>${titleInput}</td>
             <td>${salaryInput}</td>
+            <td><button class="deleteButton">Delete</button></td>
         </tr>
     `);
 
@@ -89,6 +90,7 @@ function addEmployee(){
 // loop through monthly salary 
 // create monthly cost = 0
 // add to monthly cost 
+// get #total monthly cost and append total
 
 
 function calculateMonthlyCosts() {
@@ -108,11 +110,11 @@ function calculateMonthlyCosts() {
     let total = 0;
     for (let employee in monthlySalary) {
         console.log('in monthlySalary');
-
         
         total += monthlySalary[employee];
         console.log('total:', total);
-
     } // end monthlySalary loop
+
+    $('#totalMonthlyCost').text(` $${total}`);
 
 } // end calculateMonthlyCosts
