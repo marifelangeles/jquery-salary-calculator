@@ -18,6 +18,7 @@ class EmployeeInfo {
 }
 
 let employeesList = [];
+let total = 0;
 let monthlyCost = 0;
 
 
@@ -95,24 +96,23 @@ function calculateMonthlyCosts() {
     console.log('input:', fnameInput, lnameInput, idInput, titleInput, salaryInput);
     
     let monthlySalary = [];
-
+    
     for (let i = 0; i < employeesList.length; i++) {
         console.log('employeesList[i]:', Math.floor(employeesList[i].salary / 12) );
         
         monthlySalary.push(Math.floor(employeesList[i].salary / 12) );
         console.log('monthlySalary:', monthlySalary);
         
-
     } // end employeesList loop
     
+    let total = 0;
     for (let employee in monthlySalary) {
         console.log('in monthlySalary');
+
         
-        monthlyCost += monthlySalary[employee];
-        console.log('monthlyCost:', monthlyCost);
+        total += monthlySalary[employee];
+        console.log('total:', total);
 
     } // end monthlySalary loop
-    
-    
 
 } // end calculateMonthlyCosts
