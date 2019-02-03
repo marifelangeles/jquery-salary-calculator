@@ -20,18 +20,19 @@ class EmployeeInfo {
 let employeesList = [];
 
 
+
 $(document).ready(docReady);
 
 
-function docReady() {
+function docReady(){
     console.log('jq');
 
+    // add and delete employees
     $('#submit').on('click', addEmployee);
-    //$('#submit').on('click', storeEmployeeInfo);
-
-    $('#submit').on('click', calculateMonthlyCosts);
-
     $('#employeesList').on('click', '.deleteButton', deleteEmployee);
+
+    // calculate monthly cost
+    $('#submit').on('click', addMonthlyCost);
 
 } // end docReady
 
@@ -43,17 +44,17 @@ function docReady() {
 // create new employee
 // push new employee to employees list
 
-function addEmployee() {
+function addEmployee(){
     console.log('in addEmployee');
-
+        
     fnameInput = $('#fname').val();
     lnameInput = $('#lname').val();
     idInput = $('#id').val();
     titleInput = $('#title').val();
     salaryInput = $('#salary').val();
-    salaryInput = Math.floor(Number(salaryInput));
+    salaryInput = Math.floor( Number(salaryInput) );
     console.log('input', fnameInput, lnameInput, idInput, titleInput, salaryInput);
-
+    
     $('#employeesList').append(`
         <tr class="employeeRow">
             <td>${fnameInput}</td>
@@ -75,8 +76,8 @@ function addEmployee() {
     console.log('temp:', newEmployee);
 
     employeesList.push(newEmployee);
-    //employeesList.push(temp);
     console.log('employeesList:', employeesList);
+    
 
 } // end addEmployee
 
@@ -92,44 +93,88 @@ function addEmployee() {
 // add to monthly cost 
 // get #total monthly cost and append total
 
+// add salary function
+function addMonthlyCost() {
+    console.log('in addDollars');
 
-function calculateMonthlyCosts() {
-    console.log('in calculateMonthlyCosts');
+    console.log('getMonthlySalaries(employeesList)', getMonthlySalaries(employeesList) );
+    
+    // let monthlyCost = [];
+    // monthlyCost.push(getMonthlySalaries(employeesList));
+    // console.log('monthlySalaryList', monthlyCost);
+    
+    // let total = 0;
+    // for (let i = 0; i < monthlyCost.length; i++) {
+    //     console.log('monthlyCost[i]:', monthlyCost[i]);
+         
+    //     total += monthlyCost[i];
+    //     console.log('total:', total);
+    // }
+
+    // console.log('total:', total);
+    
+    
+    
+    //$('#totalMonthlyCost').text(` $${total}`);
+
+} // end addMonthlySalary
+
+
+function subtractDollars(monthlySalary) {
+    console.log('in subtractDollars');
+    
+} // end deleteMonthlySalary
+
+// collect monthly salaries and get total
+function getMonthlySalaries(employeesList) {
+    console.log('in getMonthlySalaries');
     console.log('input:', fnameInput, lnameInput, idInput, titleInput, salaryInput);
-
+    
+    
     let monthlySalary = [];
-
+    
+    // loop through employee list annual salary
+    // push to monthly salary array
     for (let i = 0; i < employeesList.length; i++) {
-        console.log('employeesList[i]:', Math.floor(employeesList[i].salary / 12));
-
-        monthlySalary.push(Math.floor(employeesList[i].salary / 12));
+        console.log('employeesList[i]:', Math.floor(employeesList[i].salary / 12) );
+        
+        monthlySalary.push(Math.floor(employeesList[i].salary / 12) );
         console.log('monthlySalary:', monthlySalary);
-
+        
     } // end employeesList loop
 
+    console.log('monthlySalary:', monthlySalary);
+
     let total = 0;
-    for (let employee in monthlySalary) {
-        console.log('in monthlySalary');
-
-        total += monthlySalary[employee];
+    
+    for (let i = 0; i < monthlySalary.length; i++) {
+        console.log('monthlySalary[i]:', monthlySalary[i]);
+        
+        total += monthlySalary[i];
         console.log('total:', total);
-    } // end monthlySalary loop
+    }
 
-    $('#totalMonthlyCost').text(` $${total}`);
+    $('#totalMonthlyCost').text()
+
+    return total;
 
 } // end calculateMonthlyCosts
+
+
 
 
 // STEP 3: Create a delete button that removes an employee from the DOM.
 // target #employeesList, if it has .deleteButton, on click...
 // target this employeeRow and remove closest tr
 
-function deleteEmployee() {
+function deleteEmployee(){
     console.log('in deleteEmployee');
-
+    
     $(this).closest('tr').remove();
 
-    $('#totalMonthlyCost').text(`new total`);
+    getMonthlySalaries(employeesList);
+
+    //$('#totalMonthlyCost').text(`new total`);
 
 } // end deleteEmployee
 
@@ -138,3 +183,5 @@ function deleteEmployee() {
 // in deleteEmployee...
 // when delete is clicked, 
 // target #totalMonthlyCost replace text with new total
+
+
