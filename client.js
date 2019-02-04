@@ -46,6 +46,7 @@ function docReady() {
 function addEmployee() {
     console.log('in addEmployee');
 
+    // get values from input fields
     fnameInput = $('#fname').val();
     lnameInput = $('#lname').val();
     idInput = $('#id').val();
@@ -54,26 +55,30 @@ function addEmployee() {
     salaryInput = Math.floor(Number(salaryInput));
     console.log('input', fnameInput, lnameInput, idInput, titleInput, salaryInput);
 
+    // display input values on table
     $('#employeesList').append(`
         <tr class="employeeRow">
-            <td>${fnameInput}</td>
-            <td>${lnameInput}</td>
-            <td>${idInput}</td>
-            <td>${titleInput}</td>
-            <td>${salaryInput}</td>
+            <td class="fName">${fnameInput}</td>
+            <td class="lName">${lnameInput}</td>
+            <td class="id">${idInput}</td>
+            <td class="title">${titleInput}</td>
+            <td class="salary">${salaryInput}</td>
             <td><button class="deleteButton">Delete</button></td>
         </tr>
     `);
 
+    // empty input fields
     $('#fname').val('');
     $('#lname').val('');
     $('#id').val('');
     $('#title').val('');
     $('#salary').val('');
 
+    // create new employee using class constructor
     let newEmployee = new EmployeeInfo(fnameInput, lnameInput, idInput, titleInput, salaryInput);
     console.log('temp:', newEmployee);
 
+    // add new employee data to master employeesList
     employeesList.push(newEmployee);
     //employeesList.push(temp);
     console.log('employeesList:', employeesList);
@@ -115,7 +120,7 @@ function calculateMonthlyCosts() {
         console.log('total:', total);
     } // end monthlySalary loop
 
-    $('#totalMonthlyCost').text(` $${total}`);
+    $('#totalMonthlyCost').text(` $ ${total}`);
 
 } // end calculateMonthlyCosts
 
@@ -127,9 +132,28 @@ function calculateMonthlyCosts() {
 function deleteEmployee() {
     console.log('in deleteEmployee');
 
+    // delete target employee from master employeesList
+    // https://stackoverflow.com/questions/306583/how-to-get-the-children-of-the-this-selector
+    console.log('employeesList:', employeesList);
+    let rowIndex = $(this).closest('tr').index();
+    console.log('rowIndex', rowIndex);
+    console.log($(this).closest('tr').index());
+    
+    // remove closest tr when current delete button is clicked
     $(this).closest('tr').remove();
 
-    $('#totalMonthlyCost').text(`new total`);
+    
+    
+    
+    
+
+    //console.log('target salary', $(this).closest('tr').children('td.salary').text() );
+     
+    
+     
+    
+
+    //$('#totalMonthlyCost').text(`new total`);
 
 } // end deleteEmployee
 
