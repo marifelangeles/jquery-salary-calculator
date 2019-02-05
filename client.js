@@ -29,7 +29,7 @@ function docReady() {
     $('#submit').on('click', addEmployee);
     //$('#submit').on('click', storeEmployeeInfo);
 
-    $('#submit').on('click', calculateMonthlyCosts);
+    //$('#submit').on('click', calculateMonthlyCosts);
 
     $('#employeesList').on('click', '.deleteButton', deleteEmployee);
 
@@ -83,6 +83,8 @@ function addEmployee() {
     //employeesList.push(temp);
     console.log('employeesList:', employeesList);
 
+    calculateMonthlyCosts();
+
 } // end addEmployee
 
 
@@ -129,31 +131,27 @@ function calculateMonthlyCosts() {
 // target #employeesList, if it has .deleteButton, on click...
 // target this employeeRow and remove closest tr
 
+// delete target employee from master employeesList
 function deleteEmployee() {
     console.log('in deleteEmployee');
-
-    // delete target employee from master employeesList
-    // https://stackoverflow.com/questions/306583/how-to-get-the-children-of-the-this-selector
     console.log('employeesList:', employeesList);
+
+    // https://stackoverflow.com/questions/306583/how-to-get-the-children-of-the-this-selector
+    
+    // get table row index
     let rowIndex = $(this).closest('tr').index();
     console.log('rowIndex', rowIndex);
     console.log($(this).closest('tr').index());
+
+    // loop through array
+    // remove i from employeesList
+
     
+
     // remove closest tr when current delete button is clicked
     $(this).closest('tr').remove();
 
-    
-    
-    
-    
-
-    //console.log('target salary', $(this).closest('tr').children('td.salary').text() );
-     
-    
-     
-    
-
-    //$('#totalMonthlyCost').text(`new total`);
+    calculateMonthlyCosts();
 
 } // end deleteEmployee
 
